@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.yaphone.shiro.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.yaphone.shiro.model.User">
-    <id column="ID" jdbcType="BIGINT" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
+<mapper namespace="cn.yaphone.shiro.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="cn.yaphone.shiro.model.Role">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,16 +65,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, username, nickname, password, salt
+    id, role_id, role_name
   </sql>
-  <select id="selectByExample" parameterType="cn.yaphone.shiro.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.yaphone.shiro.model.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from tb_user
+    from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,85 +85,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_user
-    where ID = #{id,jdbcType=BIGINT}
+    from tb_role
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_user
-    where ID = #{id,jdbcType=BIGINT}
+    delete from tb_role
+    where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.yaphone.shiro.model.UserExample">
-    delete from tb_user
+  <delete id="deleteByExample" parameterType="cn.yaphone.shiro.model.RoleExample">
+    delete from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.yaphone.shiro.model.User">
-    insert into tb_user (ID, username, nickname, 
-      password, salt)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.yaphone.shiro.model.Role">
+    insert into tb_role (id, role_id, role_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.yaphone.shiro.model.User">
-    insert into tb_user
+  <insert id="insertSelective" parameterType="cn.yaphone.shiro.model.Role">
+    insert into tb_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        ID,
+        id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="roleId != null">
+        role_id,
       </if>
-      <if test="nickname != null">
-        nickname,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="salt != null">
-        salt,
+      <if test="roleName != null">
+        role_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.yaphone.shiro.model.UserExample" resultType="java.lang.Long">
-    select count(*) from tb_user
+  <select id="countByExample" parameterType="cn.yaphone.shiro.model.RoleExample" resultType="java.lang.Long">
+    select count(*) from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb_user
+    update tb_role
     <set>
       <if test="record.id != null">
-        ID = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.salt != null">
-        salt = #{record.salt,jdbcType=VARCHAR},
+      <if test="record.roleName != null">
+        role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -173,40 +153,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb_user
-    set ID = #{record.id,jdbcType=BIGINT},
-      username = #{record.username,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      salt = #{record.salt,jdbcType=VARCHAR}
+    update tb_role
+    set id = #{record.id,jdbcType=BIGINT},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      role_name = #{record.roleName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.yaphone.shiro.model.User">
-    update tb_user
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yaphone.shiro.model.Role">
+    update tb_role
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        salt = #{salt,jdbcType=VARCHAR},
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.yaphone.shiro.model.User">
-    update tb_user
-    set username = #{username,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="cn.yaphone.shiro.model.Role">
+    update tb_role
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
