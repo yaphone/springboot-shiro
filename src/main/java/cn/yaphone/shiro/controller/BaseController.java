@@ -5,7 +5,6 @@ import cn.yaphone.shiro.common.ErrorCodeEnum;
 import cn.yaphone.shiro.model.User;
 import cn.yaphone.shiro.service.BaseService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
@@ -22,6 +21,7 @@ import java.util.Map;
  * @date 2018/10/5 16:37
  */
 @RestController
+@RequestMapping("base")
 public class BaseController {
 
     @Autowired
@@ -46,13 +46,13 @@ public class BaseController {
         user.setPassword(params.get("password"));
 
         Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
-        } catch (AuthenticationException ex) {
-            System.out.println("登陆失败");
-        } catch (Exception e) {
+        subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
 
-        }
         return new BaseResponse(ErrorCodeEnum.SUCCESS, "login");
+    }
+
+    @RequestMapping("needLogin")
+    public BaseResponse login() {
+        return new BaseResponse(ErrorCodeEnum.UN_LOGIN, "you have to login before use this service");
     }
 }

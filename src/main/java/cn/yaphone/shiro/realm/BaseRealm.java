@@ -63,6 +63,7 @@ public class BaseRealm extends JdbcRealm {
         User user = (User) principals.getPrimaryPrincipal();
         List<Role> roles = userRoleService.getRolesByUser(user);
         for(Role role: roles) {
+            authorizationInfo.addRole(role.getRoleName());
             List<Permission> permissions =  rolePermissionService.getPermissionsByRole(role);
             for (Permission permission: permissions) {
                 authorizationInfo.addStringPermission(permission.getResourceCode());

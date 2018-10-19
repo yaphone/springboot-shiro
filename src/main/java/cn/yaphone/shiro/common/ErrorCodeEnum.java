@@ -11,7 +11,8 @@ public enum ErrorCodeEnum {
     //权限相关
     UN_LOGIN(601, "未登陆"),
     UN_AUTH(602, "未认证"),
-    NO_PERMISSION(603, "无权限");
+    UNKOWN_ACCOUNT(603, "未知账户"),
+    NO_PERMISSION(604, "无权限");
 
     int code;
     String msg;
