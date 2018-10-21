@@ -66,7 +66,9 @@ public class BaseRealm extends JdbcRealm {
             authorizationInfo.addRole(role.getRoleName());
             List<Permission> permissions =  rolePermissionService.getPermissionsByRole(role);
             for (Permission permission: permissions) {
-                authorizationInfo.addStringPermission(permission.getResourceCode());
+                if (permission != null) {
+                    authorizationInfo.addStringPermission(permission.getPermissionCode());
+                }
             }
         }
         return authorizationInfo;

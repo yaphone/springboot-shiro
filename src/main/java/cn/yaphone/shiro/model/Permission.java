@@ -5,13 +5,13 @@ public class Permission {
 
     private String permissionId;
 
-    private String permissionName;
-
     private String resourceCode;
 
     private String resorceName;
 
-    private Long requiredPermission;
+    private String permissionName;
+
+    private String permissionCode;
 
     public Long getId() {
         return id;
@@ -27,14 +27,6 @@ public class Permission {
 
     public void setPermissionId(String permissionId) {
         this.permissionId = permissionId == null ? null : permissionId.trim();
-    }
-
-    public String getPermissionName() {
-        return permissionName;
-    }
-
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName == null ? null : permissionName.trim();
     }
 
     public String getResourceCode() {
@@ -53,11 +45,19 @@ public class Permission {
         this.resorceName = resorceName == null ? null : resorceName.trim();
     }
 
-    public Long getRequiredPermission() {
-        return requiredPermission;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setRequiredPermission(Long requiredPermission) {
-        this.requiredPermission = requiredPermission;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName == null ? null : permissionName.trim();
+    }
+
+    public String getPermissionCode() {
+        return permissionCode;
+    }
+
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode == null ? null : permissionCode.trim();
     }
 }

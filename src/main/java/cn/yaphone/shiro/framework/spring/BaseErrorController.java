@@ -1,4 +1,4 @@
-package cn.yaphone.shiro.framework;
+package cn.yaphone.shiro.framework.spring;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

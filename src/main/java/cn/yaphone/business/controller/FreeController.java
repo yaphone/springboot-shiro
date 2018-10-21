@@ -19,6 +19,7 @@ import java.util.Map;
 public class FreeController {
 
     @RequiresPermissions("ip:search")
+    @RequestMapping("/ipSearch")
     public BaseResponse ipSearch() {
         Map<String, String> data = new HashMap<>();
         data.put("country", "中国");

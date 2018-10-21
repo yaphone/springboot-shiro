@@ -21,10 +21,10 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionMapper permissionMapper;
 
     @Override
-    public Permission getPermissionByPermissionId(String permissionId) {
+    public List<Permission> getPermissionByPermissionId(String permissionId) {
         PermissionExample example = new PermissionExample();
         example.createCriteria().andPermissionIdEqualTo(permissionId);
         List<Permission> permissions = permissionMapper.selectByExample(example);
-        return permissions.size() == 1 ? permissions.get(0) : null;
+        return permissions;
     }
 }

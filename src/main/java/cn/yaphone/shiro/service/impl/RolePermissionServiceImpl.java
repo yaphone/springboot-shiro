@@ -34,7 +34,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         example.createCriteria().andRoleIdEqualTo(role.getRoleId());
         List<RolePermission> rolePermissions = rolePermissionMapper.selectByExample(example);
         for (RolePermission rolePermission: rolePermissions) {
-            permissions.add(permissionService.getPermissionByPermissionId(rolePermission.getPermissionId()));
+            permissions.addAll(permissionService.getPermissionByPermissionId(rolePermission.getPermissionId()));
         }
         return permissions;
     }

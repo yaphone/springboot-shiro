@@ -1,4 +1,4 @@
-package cn.yaphone.shiro.framework;
+package cn.yaphone.shiro.framework.shiro;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

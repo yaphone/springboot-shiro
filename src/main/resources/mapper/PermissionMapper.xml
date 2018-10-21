@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="cn.yaphone.shiro.model.Permission">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
-    <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
     <result column="resource_code" jdbcType="VARCHAR" property="resourceCode" />
     <result column="resorce_name" jdbcType="VARCHAR" property="resorceName" />
-    <result column="required_permission" jdbcType="BIGINT" property="requiredPermission" />
+    <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
+    <result column="permission_code" jdbcType="VARCHAR" property="permissionCode" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, permission_id, permission_name, resource_code, resorce_name, required_permission
+    id, permission_id, resource_code, resorce_name, permission_name, permission_code
   </sql>
   <select id="selectByExample" parameterType="cn.yaphone.shiro.model.PermissionExample" resultMap="BaseResultMap">
     select
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yaphone.shiro.model.Permission">
-    insert into tb_permission (id, permission_id, permission_name, 
-      resource_code, resorce_name, required_permission
+    insert into tb_permission (id, permission_id, resource_code, 
+      resorce_name, permission_name, permission_code
       )
-    values (#{id,jdbcType=BIGINT}, #{permissionId,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, 
-      #{resourceCode,jdbcType=VARCHAR}, #{resorceName,jdbcType=VARCHAR}, #{requiredPermission,jdbcType=BIGINT}
+    values (#{id,jdbcType=BIGINT}, #{permissionId,jdbcType=VARCHAR}, #{resourceCode,jdbcType=VARCHAR}, 
+      #{resorceName,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{permissionCode,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.yaphone.shiro.model.Permission">
@@ -118,17 +118,17 @@
       <if test="permissionId != null">
         permission_id,
       </if>
-      <if test="permissionName != null">
-        permission_name,
-      </if>
       <if test="resourceCode != null">
         resource_code,
       </if>
       <if test="resorceName != null">
         resorce_name,
       </if>
-      <if test="requiredPermission != null">
-        required_permission,
+      <if test="permissionName != null">
+        permission_name,
+      </if>
+      <if test="permissionCode != null">
+        permission_code,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -138,17 +138,17 @@
       <if test="permissionId != null">
         #{permissionId,jdbcType=VARCHAR},
       </if>
-      <if test="permissionName != null">
-        #{permissionName,jdbcType=VARCHAR},
-      </if>
       <if test="resourceCode != null">
         #{resourceCode,jdbcType=VARCHAR},
       </if>
       <if test="resorceName != null">
         #{resorceName,jdbcType=VARCHAR},
       </if>
-      <if test="requiredPermission != null">
-        #{requiredPermission,jdbcType=BIGINT},
+      <if test="permissionName != null">
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionCode != null">
+        #{permissionCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -167,17 +167,17 @@
       <if test="record.permissionId != null">
         permission_id = #{record.permissionId,jdbcType=VARCHAR},
       </if>
-      <if test="record.permissionName != null">
-        permission_name = #{record.permissionName,jdbcType=VARCHAR},
-      </if>
       <if test="record.resourceCode != null">
         resource_code = #{record.resourceCode,jdbcType=VARCHAR},
       </if>
       <if test="record.resorceName != null">
         resorce_name = #{record.resorceName,jdbcType=VARCHAR},
       </if>
-      <if test="record.requiredPermission != null">
-        required_permission = #{record.requiredPermission,jdbcType=BIGINT},
+      <if test="record.permissionName != null">
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionCode != null">
+        permission_code = #{record.permissionCode,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -188,10 +188,10 @@
     update tb_permission
     set id = #{record.id,jdbcType=BIGINT},
       permission_id = #{record.permissionId,jdbcType=VARCHAR},
-      permission_name = #{record.permissionName,jdbcType=VARCHAR},
       resource_code = #{record.resourceCode,jdbcType=VARCHAR},
       resorce_name = #{record.resorceName,jdbcType=VARCHAR},
-      required_permission = #{record.requiredPermission,jdbcType=BIGINT}
+      permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      permission_code = #{record.permissionCode,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -202,17 +202,17 @@
       <if test="permissionId != null">
         permission_id = #{permissionId,jdbcType=VARCHAR},
       </if>
-      <if test="permissionName != null">
-        permission_name = #{permissionName,jdbcType=VARCHAR},
-      </if>
       <if test="resourceCode != null">
         resource_code = #{resourceCode,jdbcType=VARCHAR},
       </if>
       <if test="resorceName != null">
         resorce_name = #{resorceName,jdbcType=VARCHAR},
       </if>
-      <if test="requiredPermission != null">
-        required_permission = #{requiredPermission,jdbcType=BIGINT},
+      <if test="permissionName != null">
+        permission_name = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionCode != null">
+        permission_code = #{permissionCode,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -220,10 +220,10 @@
   <update id="updateByPrimaryKey" parameterType="cn.yaphone.shiro.model.Permission">
     update tb_permission
     set permission_id = #{permissionId,jdbcType=VARCHAR},
-      permission_name = #{permissionName,jdbcType=VARCHAR},
       resource_code = #{resourceCode,jdbcType=VARCHAR},
       resorce_name = #{resorceName,jdbcType=VARCHAR},
-      required_permission = #{requiredPermission,jdbcType=BIGINT}
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_code = #{permissionCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

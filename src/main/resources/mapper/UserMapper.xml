@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="cn.yaphone.shiro.model.User">
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, username, nickname, password, salt
+    ID, username, password, salt
   </sql>
   <select id="selectByExample" parameterType="cn.yaphone.shiro.model.UserExample" resultMap="BaseResultMap">
     select
@@ -101,10 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.yaphone.shiro.model.User">
-    insert into tb_user (ID, username, nickname, 
-      password, salt)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
+    insert into tb_user (ID, username, password, 
+      salt)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.yaphone.shiro.model.User">
     insert into tb_user
@@ -114,9 +113,6 @@
       </if>
       <if test="username != null">
         username,
-      </if>
-      <if test="nickname != null">
-        nickname,
       </if>
       <if test="password != null">
         password,
@@ -131,9 +127,6 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -158,9 +151,6 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
-      </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
@@ -176,7 +166,6 @@
     update tb_user
     set ID = #{record.id,jdbcType=BIGINT},
       username = #{record.username,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       salt = #{record.salt,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -188,9 +177,6 @@
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -204,7 +190,6 @@
   <update id="updateByPrimaryKey" parameterType="cn.yaphone.shiro.model.User">
     update tb_user
     set username = #{username,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
