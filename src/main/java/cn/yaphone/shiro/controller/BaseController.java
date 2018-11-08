@@ -2,6 +2,7 @@ package cn.yaphone.shiro.controller;
 
 import cn.yaphone.shiro.common.BaseResponse;
 import cn.yaphone.shiro.common.ErrorCodeEnum;
+import cn.yaphone.shiro.controller.service.TestService;
 import cn.yaphone.shiro.dto.SessionDto;
 import cn.yaphone.shiro.model.User;
 import cn.yaphone.shiro.service.BaseService;
